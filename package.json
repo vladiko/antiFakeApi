@@ -1,0 +1,10 @@
+{
+  "name": "anti-fake-api",
+  "version": "0.0.0",
+  "description": "antiFakeApi",
+  "main": "app.js",
+  "author": {
+    "name": "vkogan",
+    "email": ""
+  }
+}

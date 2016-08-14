@@ -1,0 +1,8 @@
+*.njsproj
+*.Debug.config
+*.config
+/bin
+/obj
+/node_modules
+*.pubxml
+*.pubxml.user
