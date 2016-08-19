@@ -1,11 +1,9 @@
-﻿import http = require('http');
-var port = process.env.port || 1337
-var MongoClient = require('mongodb').MongoClient
-    , assert = require('assert');
-
+"use strict";
+var http = require('http');
+var port = process.env.port || 1337;
+var MongoClient = require('mongodb').MongoClient, assert = require('assert');
 // Connection URL
 var url = 'mongodb://test:test@koganx.cloudapp.net:27017/test';
-
 http.createServer(function (req, res) {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     var mongoR;
@@ -15,16 +13,15 @@ http.createServer(function (req, res) {
         console.log("Connected succesfully to server");
         mongoR = db.collection('movie');
         var docsfond;
-        mongoR.find({}).toArray((err, docs) => {
+        mongoR.find({}).toArray(function (err, docs) {
             assert.equal(err, null);
             console.log("Found the following records");
-            console.log(docs)
+            console.log(docs);
             docsfond = docs;
             db.close();
             res.end('Hello World\n  ' + docsfond + '\n');
             //callback(docs);
         });
-
     });
-
 }).listen(port);
+//# sourceMappingURL=server.js.map
