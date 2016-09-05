@@ -25,5 +25,6 @@ module.exports = function () {
         secret: config.sessionSecret
     }));
     require('../app/routes/fakeChecker.routes.js')(app);
+    require('../app/routes/user.routes.js')(app);
     return app;
 };

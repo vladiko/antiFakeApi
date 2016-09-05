@@ -26,5 +26,6 @@ module.exports = function () {
     }));
 
     require('../app/routes/fakeChecker.routes.js')(app);
+    require('../app/routes/user.routes.js')(app);
     return app;
 };
