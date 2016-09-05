@@ -18,7 +18,6 @@ module.exports = {
                 console.log(docs);
                 docsfond = docs;
                 db.close();
-                //res.end('Hello World\n  ' + docsfond + '\n');
                 callback(docs);
             });
         });

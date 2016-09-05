@@ -17,8 +17,7 @@ module.exports = {
                 console.log("Found the following records");
                 console.log(docs)
                 docsfond = docs;
-                db.close();
-                //res.end('Hello World\n  ' + docsfond + '\n');
+                db.close();                
                 callback(docs);
             });
         });
