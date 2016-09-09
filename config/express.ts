@@ -3,6 +3,7 @@ import morgan = require('morgan');
 import compress = require('compression');
 import bodyParser = require('body-parser');
 import session = require('express-session');
+import * as passport from 'passport';
 
 var config = require('./config'),
     methodOverride = require('method-override');
@@ -24,6 +25,9 @@ module.exports = function () {
         resave: true,
         secret: config.sessionSecret
     }));
+
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     require('../app/routes/fakeChecker.routes.js')(app);
     require('../app/routes/user.routes.js')(app);

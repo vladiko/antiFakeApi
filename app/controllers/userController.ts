@@ -1,21 +1,22 @@
 ﻿var User = require('mongoose').model('User');
-exports.create = function (req, res, next) {
-    var user = new User(req.body);
-    user.save(function (err) {
-        if (err) {
-            return next(err);
-        } else {
-            res.json(user);
-        }
-    });
-};
-
-exports.list = function (req, res, next) {
-    User.find({}, function (err, users) {
-        if (err) {
-            return next(err);
-        } else {
-            res.json(users);
-        }
-    });
-};
+module.exports = {
+    list: (req, res, next) => {
+        User.find({}, (err, users) => {
+            if (err) {
+                return next(err);
+            } else {
+                res.json(users);
+            }
+        });
+    },
+    create: (req, res, next) => {
+        var user = new User(req.body);
+        user.save((err) => {
+            if (err) {
+                return next(err);
+            } else {
+                res.json(user);
+            }
+        });
+    }
+}

@@ -10,4 +10,6 @@
 /// <reference path="globals/mongoose/index.d.ts" />
 /// <reference path="globals/morgan/index.d.ts" />
 /// <reference path="globals/node/index.d.ts" />
+/// <reference path="globals/passport-local/index.d.ts" />
+/// <reference path="globals/passport/index.d.ts" />
 /// <reference path="globals/serve-static/index.d.ts" />

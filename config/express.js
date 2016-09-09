@@ -4,6 +4,7 @@ var morgan = require('morgan');
 var compress = require('compression');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var passport = require('passport');
 var config = require('./config'), methodOverride = require('method-override');
 module.exports = function () {
     var app = express();
@@ -24,6 +25,8 @@ module.exports = function () {
         resave: true,
         secret: config.sessionSecret
     }));
+    app.use(passport.initialize());
+    app.use(passport.session());
     require('../app/routes/fakeChecker.routes.js')(app);
     require('../app/routes/user.routes.js')(app);
     return app;

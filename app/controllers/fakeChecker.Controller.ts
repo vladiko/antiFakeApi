@@ -1,4 +1,4 @@
-﻿var fakeCheckerDal = require('../dal/fakeChecker.dal.js');
+﻿let fakeCheckerDal = require('../dal/fakeChecker.dal.js');
 exports.render = function (req, res) {
     fakeCheckerDal.check('d', (docs: Array<Object>) => {
         var names = [];
