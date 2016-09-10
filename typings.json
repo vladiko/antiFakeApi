@@ -3,6 +3,7 @@
     "node-uuid": "registry:npm/node-uuid#1.4.7+20160723033700"
   },
   "globalDependencies": {
+    "angular": "registry:dt/angular#1.5.0+20160909133806",
     "assert": "registry:dt/assert#0.0.0+20160317120654",
     "body-parser": "registry:dt/body-parser#0.0.0+20160619023215",
     "compression": "registry:dt/compression#0.0.0+20160501162003",
@@ -10,6 +11,7 @@
     "express": "registry:dt/express#4.0.0+20160708185218",
     "express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160819131900",
     "express-session": "registry:dt/express-session#0.0.0+20160819134112",
+    "jquery": "registry:dt/jquery#1.10.0+20160908203239",
     "mime": "registry:dt/mime#0.0.0+20160316155526",
     "mongodb": "registry:dt/mongodb#2.1.0+20160602142941",
     "mongoose": "registry:dt/mongoose#4.5.9+20160826204928",
