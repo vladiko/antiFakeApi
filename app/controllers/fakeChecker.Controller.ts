@@ -7,7 +7,7 @@ exports.render = function (req, res) {
     }
     var uuid = idGenerator(); fakeCheckerDal.check('d', (docs: Array<Object>) => {
         var names = [];
-        docs.forEach((d: any) => { names.push(d.name); });
+        docs.forEach((d: any) => { names.push(JSON.stringify(d)); });
         //var idStrins = ids.join('</br>');
         res.send(ids.length + ' Hello World Express Controller: ' + names.join(', '));
     });

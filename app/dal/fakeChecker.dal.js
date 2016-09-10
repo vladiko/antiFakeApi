@@ -10,7 +10,7 @@ module.exports = {
         mongoClient.connect(url, function (err, db) {
             assertA.equal(null, err);
             console.log("Connected succesfully to server " + str);
-            mongoR = db.collection('movie');
+            mongoR = db.collection('users');
             var docsfond;
             mongoR.find({}).toArray(function (err, docs) {
                 assertA.equal(err, null);
