@@ -1,0 +1,7 @@
+{
+  "name": "anti-fake-api",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}

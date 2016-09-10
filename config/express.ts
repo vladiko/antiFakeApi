@@ -31,5 +31,6 @@ module.exports = function () {
 
     require('../app/routes/fakeChecker.routes.js')(app);
     require('../app/routes/user.routes.js')(app);
+    app.use(express.static('./public'));
     return app;
 };

@@ -1,5 +1,7 @@
 {
-  "dependencies": {},
+  "dependencies": {
+    "node-uuid": "registry:npm/node-uuid#1.4.7+20160723033700"
+  },
   "globalDependencies": {
     "assert": "registry:dt/assert#0.0.0+20160317120654",
     "body-parser": "registry:dt/body-parser#0.0.0+20160619023215",

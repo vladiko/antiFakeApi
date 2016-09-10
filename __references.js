@@ -1,3 +1,4 @@
+/// <reference path="app/services/uuidGenerator.ts" />
 /// <reference path="config/env/development.ts" />
 /// <reference path="config/env/production.ts" />
 /// <reference path="typings/index.d.ts" />
