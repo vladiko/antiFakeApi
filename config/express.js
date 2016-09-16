@@ -27,6 +27,8 @@ module.exports = function () {
     }));
     app.use(passport.initialize());
     app.use(passport.session());
+    require('../app/routes/producer.routes.js')(app);
+    require('../app/routes/product.routes.js')(app);
     require('../app/routes/fakeChecker.routes.js')(app);
     require('../app/routes/user.routes.js')(app);
     app.use(express.static('./public'));

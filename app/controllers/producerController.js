@@ -1,4 +1,4 @@
-var User = require('mongoose').model('User');
+var Producer = require('mongoose').model('Producer'); //producer
 module.exports = {
     requiresLogin: function (req, res, next) {
         if (!req.isAuthenticated()) {
@@ -9,23 +9,23 @@ module.exports = {
         next();
     },
     list: function (req, res, next) {
-        User.find({}, function (err, users) {
+        Producer.find({}, function (err, producers) {
             if (err) {
                 return next(err);
             }
             else {
-                res.json(users);
+                res.json(producers);
             }
         });
     },
     create: function (req, res, next) {
-        var user = new User(req.body);
-        user.save(function (err) {
+        var producer = new Producer(req.body);
+        producer.save(function (err) {
             if (err) {
                 return next(err);
             }
             else {
-                res.json(user);
+                res.json(producer);
             }
         });
     }

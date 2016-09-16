@@ -11,10 +11,15 @@ var antiFakeClient;
         return LoginCtr;
     }());
     var LoginCtrViewModel = (function () {
-        function LoginCtrViewModel() {
+        function LoginCtrViewModel(_communictionService) {
+            var _this = this;
+            this._communictionService = _communictionService;
             this.t = 'dddd';
-            this.t = 'dd';
+            this.click = function () {
+                _this._communictionService.addUser();
+            };
         }
+        LoginCtrViewModel.$inject = ['communicationService'];
         return LoginCtrViewModel;
     }());
     app.component('loginCtr', new LoginCtr());
