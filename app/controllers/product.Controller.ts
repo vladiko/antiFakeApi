@@ -1,7 +1,7 @@
 ﻿import * as mongoose from 'mongoose';
 import * as   ProducerModel  from '../models/producerModel';
-var Product = require('mongoose').model('Product');//product
-var Producer = require('mongoose').model('Producer');//product
+var Product = require('mongoose').model('Product');
+var Producer = require('mongoose').model('Producer');
 module.exports = {
     list: (req, res, next) => {
         Product.find({}).populate('producer').exec((err, products) => {

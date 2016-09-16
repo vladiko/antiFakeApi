@@ -6,5 +6,6 @@ module.exports = function () {
     require('../app/models/userModel');
     require('../app/models/producerModel');
     require('../app/models/productModel');
+    require('../app/models/itemKeyModel');
     return db;
 };

@@ -1,6 +1,6 @@
 "use strict";
-var Product = require('mongoose').model('Product'); //product
-var Producer = require('mongoose').model('Producer'); //product
+var Product = require('mongoose').model('Product');
+var Producer = require('mongoose').model('Producer');
 module.exports = {
     list: function (req, res, next) {
         Product.find({}).populate('producer').exec(function (err, products) {
