@@ -5,7 +5,8 @@ var ItemKeySchema = new Schema({
     uuid: {
         type: String,
         required: 'uuid is required',
-        trim: true
+        trim: true,
+        index: true
     },
     created: {
         type: Date,
@@ -20,8 +21,12 @@ var ItemKeySchema = new Schema({
         type: Boolean,
         default: false
     },
-    data: String,
-    itemSerial: String
+    openDate: Date,
+    checkCounter: {
+        type: Number,
+        default: 0
+    },
+    serial: String
 });
 ItemKeySchema.set('toJSON', {
     getters: true,

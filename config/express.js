@@ -27,11 +27,13 @@ module.exports = function () {
     }));
     app.use(passport.initialize());
     app.use(passport.session());
-    require('../app/routes/producer.routes.js')(app);
-    require('../app/routes/product.routes.js')(app);
-    require('../app/routes/itemKey.routes.js')(app);
-    require('../app/routes/fakeChecker.routes.js')(app);
-    require('../app/routes/user.routes.js')(app);
+    var router = express.Router();
+    require('../app/routes/producer.routes.js')(app, router);
+    require('../app/routes/product.routes.js')(app, router);
+    require('../app/routes/itemKey.routes.js')(app, router);
+    require('../app/routes/fakeChecker.routes.js')(app, router);
+    require('../app/routes/user.routes.js')(app, router);
     app.use(express.static('./public'));
+    app.use('/', router);
     return app;
 };

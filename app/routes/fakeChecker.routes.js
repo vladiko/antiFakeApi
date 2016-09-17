@@ -1,5 +1,6 @@
-module.exports = function (app) {
+module.exports = function (app, router) {
     var fakeChecker = require('../controllers/fakeChecker.controller');
-    app.get('/api', fakeChecker.render);
-    //app.get('/list/', index.imgList);
+    router.get('/api', fakeChecker.render);
+    router.get('/check/:uuid', fakeChecker.keyByUIID);
+    //  app.param('uuid', fakeChecker.keyByUIID);
 };

@@ -3,37 +3,72 @@ var ItemKey = require('mongoose').model('ItemKey');
 var Product = require('mongoose').model('Product');
 var Producer = require('mongoose').model('Producer');
 var idGenerator = require('../services/uuidGenerator');
+var KeyRequestDataEntry = (function () {
+    function KeyRequestDataEntry(data, serial) {
+        this.data = data;
+        this.serial = serial;
+    }
+    return KeyRequestDataEntry;
+}());
 module.exports = {
     list: function (req, res, next) {
-        ItemKey.find({}).exec(function (err, products) {
+        ItemKey.find({}).exec(function (err, itemKeys) {
             if (err) {
                 return next(err);
             }
             else {
-                res.json(products);
+                res.json(itemKeys.length);
             }
         });
     },
     create: function (req, res, next) {
         var productName = req.body.productName;
+        var datas = req.body.datas;
+        var commonData = req.body.data;
+        var commonSerial = parseInt(req.body.serial);
         var amount = req.body.amount;
-        console.log(JSON.stringify(productName));
-        console.log(JSON.stringify(amount));
+        var keysForDatas;
+        if (datas && Array.isArray(datas)) {
+            keysForDatas = true;
+        }
+        else {
+            keysForDatas = false;
+        }
         Product.findOne({ uniqShortProductName: productName }, 'id', function (err, product) {
-            console.log(JSON.stringify(product));
             if (err) {
                 console.log('error in item key find product');
             }
             else {
-                var itemKey = new ItemKey(req.body);
-                itemKey.product = product;
-                itemKey.uuid = idGenerator();
-                itemKey.save(function (err) {
+                var keysToReturn = [];
+                if (keysForDatas) {
+                    datas.forEach(function (d) {
+                        var itemKey = new Object();
+                        itemKey.product = product.id;
+                        itemKey.uuid = idGenerator();
+                        itemKey.data = d.data;
+                        itemKey.serial = d.serial;
+                        keysToReturn.push(itemKey);
+                    });
+                }
+                else {
+                    if (!commonSerial) {
+                        commonSerial = 0;
+                    }
+                    for (var i = 0; i < amount; i++) {
+                        var itemKey = new Object();
+                        itemKey.product = product.id;
+                        itemKey.uuid = idGenerator();
+                        itemKey.serial = commonSerial++;
+                        itemKey.data = commonData;
+                        keysToReturn.push(itemKey);
+                    }
+                }
+                ItemKey.collection.insert(keysToReturn, function (err, docs) {
                     if (err) {
                         return next(err);
                     }
                     else {
-                        res.json(itemKey);
+                        res.json(docs);
                     }
                 });
             }
