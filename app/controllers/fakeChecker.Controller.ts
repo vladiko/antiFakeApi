@@ -25,10 +25,6 @@ module.exports = {
         });
     },
 
-    //read: (req, res) => {
-    //    console.log('read');
-    //    res.json(req.key);
-    //},
     keyByUIID: (req, res) => {
         ItemKey.findOne({
             "uuid": req.params.uuid
@@ -43,13 +39,24 @@ module.exports = {
             if (err) {
                 return (err);
             } else {
-                var retOb:any = {};
+                var retOb: any = {};
                 retOb.productName = item.product.productName;
                 retOb.companyName = item.product.producer.companyName;
+                retOb.serial = item.serial;
+                retOb.data = item.data;
                 retOb.wasOpen = item.wasOpen;
                 retOb.created = item.created;
                 retOb.openDate = item.openDate;
-                retOb.checkCounter = item.checkCounter;
+                retOb.checkCounter = item.checkCounter++;
+                item.wasOpen = true;
+                if (!item.openDate) {
+                    item.openDate = Date.now();
+                }
+                item.save(saveErr => {
+                    if (saveErr) {
+                        //console.log(JSON.stringify(saveErr));
+                    }
+                });
                 res.json(retOb);
             }
         });

@@ -25,10 +25,6 @@ module.exports = {
             res.send(idStrins + ' Hello World Express Controller: ' + names.join(', '));
         });
     },
-    //read: (req, res) => {
-    //    console.log('read');
-    //    res.json(req.key);
-    //},
     keyByUIID: function (req, res) {
         ItemKey.findOne({
             "uuid": req.params.uuid
@@ -47,10 +43,20 @@ module.exports = {
                 var retOb = {};
                 retOb.productName = item.product.productName;
                 retOb.companyName = item.product.producer.companyName;
+                retOb.serial = item.serial;
+                retOb.data = item.data;
                 retOb.wasOpen = item.wasOpen;
                 retOb.created = item.created;
                 retOb.openDate = item.openDate;
-                retOb.checkCounter = item.checkCounter;
+                retOb.checkCounter = item.checkCounter++;
+                item.wasOpen = true;
+                if (!item.openDate) {
+                    item.openDate = Date.now();
+                }
+                item.save(function (saveErr) {
+                    if (saveErr) {
+                    }
+                });
                 res.json(retOb);
             }
         });

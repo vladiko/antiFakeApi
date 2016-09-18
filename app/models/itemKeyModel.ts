@@ -26,7 +26,8 @@ var ItemKeySchema = new Schema({
         type: Number,
         default: 0
     },
-    serial: String
+    serial: String,
+    data: String
 });
 
 ItemKeySchema.set('toJSON', {
