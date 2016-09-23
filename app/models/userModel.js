@@ -1,15 +1,4 @@
 "use strict";
-//import mongoose = require('mongoose');
-//var Schema = mongoose.Schema;
-//var UserSchema = new Schema({
-//    firstName: String,
-//    lastName: String,
-//    email: String,
-//    username: String,
-//    password: String
-//});
-//mongoose.model('User', UserSchema);
-//-------------------
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var Schema = mongoose.Schema;

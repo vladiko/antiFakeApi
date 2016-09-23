@@ -40,24 +40,29 @@ module.exports = {
                 return (err);
             }
             else {
-                var retOb = {};
-                retOb.productName = item.product.productName;
-                retOb.companyName = item.product.producer.companyName;
-                retOb.serial = item.serial;
-                retOb.data = item.data;
-                retOb.wasOpen = item.wasOpen;
-                retOb.created = item.created;
-                retOb.openDate = item.openDate;
-                retOb.checkCounter = item.checkCounter++;
-                item.wasOpen = true;
-                if (!item.openDate) {
-                    item.openDate = Date.now();
-                }
-                item.save(function (saveErr) {
-                    if (saveErr) {
+                if (item) {
+                    var retOb = {};
+                    retOb.productName = item.product.productName;
+                    retOb.companyName = item.product.producer.companyName;
+                    retOb.serial = item.serial;
+                    retOb.data = item.data;
+                    retOb.wasOpen = item.wasOpen;
+                    retOb.created = item.created;
+                    retOb.openDate = item.openDate;
+                    retOb.checkCounter = item.checkCounter++;
+                    item.wasOpen = true;
+                    if (!item.openDate) {
+                        item.openDate = Date.now();
                     }
-                });
-                res.json(retOb);
+                    item.save(function (saveErr) {
+                        if (saveErr) {
+                        }
+                    });
+                    res.json(retOb);
+                }
+                else {
+                    res.json(null);
+                }
             }
         });
     },
@@ -86,7 +91,6 @@ module.exports = {
         }
         Product.findOne({ uniqShortProductName: productName }, 'id', function (err, product) {
             if (err) {
-                console.log('error in item key find product');
             }
             else {
                 var keysToReturn = [];

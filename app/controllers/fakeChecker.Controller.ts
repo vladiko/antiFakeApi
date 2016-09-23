@@ -39,25 +39,29 @@ module.exports = {
             if (err) {
                 return (err);
             } else {
-                var retOb: any = {};
-                retOb.productName = item.product.productName;
-                retOb.companyName = item.product.producer.companyName;
-                retOb.serial = item.serial;
-                retOb.data = item.data;
-                retOb.wasOpen = item.wasOpen;
-                retOb.created = item.created;
-                retOb.openDate = item.openDate;
-                retOb.checkCounter = item.checkCounter++;
-                item.wasOpen = true;
-                if (!item.openDate) {
-                    item.openDate = Date.now();
-                }
-                item.save(saveErr => {
-                    if (saveErr) {
-                        //console.log(JSON.stringify(saveErr));
+                if (item) {
+                    var retOb: any = {};
+                    retOb.productName = item.product.productName;
+                    retOb.companyName = item.product.producer.companyName;
+                    retOb.serial = item.serial;
+                    retOb.data = item.data;
+                    retOb.wasOpen = item.wasOpen;
+                    retOb.created = item.created;
+                    retOb.openDate = item.openDate;
+                    retOb.checkCounter = item.checkCounter++;
+                    item.wasOpen = true;
+                    if (!item.openDate) {
+                        item.openDate = Date.now();
                     }
-                });
-                res.json(retOb);
+                    item.save(saveErr => {
+                        if (saveErr) {
+                            //console.log(JSON.stringify(saveErr));
+                        }
+                    });
+                    res.json(retOb);
+                } else {
+                    res.json(null);
+                }
             }
         });
     },
@@ -87,7 +91,7 @@ module.exports = {
 
         Product.findOne({ uniqShortProductName: productName }, 'id', (err, product) => {
             if (err) {
-                console.log('error in item key find product');
+                //
             } else {
                 var keysToReturn = [];
                 if (keysForDatas) {
