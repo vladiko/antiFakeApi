@@ -2,7 +2,7 @@
 var ItemKey = require('mongoose').model('ItemKey');
 var Product = require('mongoose').model('Product');
 var Producer = require('mongoose').model('Producer');
-var idGenerator = require('../services/uuidGenerator');
+var UuidGenerator = require('../services/uuidGenerator');
 var KeyRequestDataEntry = (function () {
     function KeyRequestDataEntry(data, serial) {
         this.data = data;
@@ -44,7 +44,7 @@ module.exports = {
                     datas.forEach(function (d) {
                         var itemKey = new Object();
                         itemKey.product = product.id;
-                        itemKey.uuid = idGenerator();
+                        itemKey.uuid = UuidGenerator.UuidGenerator.generateId();
                         itemKey.data = d.data;
                         itemKey.serial = d.serial;
                         keysToReturn.push(itemKey);
@@ -57,7 +57,7 @@ module.exports = {
                     for (var i = 0; i < amount; i++) {
                         var itemKey = new Object();
                         itemKey.product = product.id;
-                        itemKey.uuid = idGenerator();
+                        itemKey.uuid = UuidGenerator.UuidGenerator.generateId();
                         itemKey.serial = commonSerial++;
                         itemKey.data = commonData;
                         keysToReturn.push(itemKey);
@@ -75,3 +75,4 @@ module.exports = {
         });
     }
 };
+//# sourceMappingURL=itemKey.controller.js.map

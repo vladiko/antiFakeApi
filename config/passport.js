@@ -13,3 +13,4 @@ module.exports = function () {
     });
     require('./strategies/local.js')();
 };
+//# sourceMappingURL=passport.js.map

@@ -2,13 +2,10 @@
 var ItemKey = require('mongoose').model('ItemKey');
 var Product = require('mongoose').model('Product');
 var Producer = require('mongoose').model('Producer');
-let idGenerator = require('../services/uuidGenerator');
+import UuidGenerator = require('../services/uuidGenerator');
 class KeyRequestDataEntry {
     constructor(public data: string, public serial: string) { }
 }
-
-
-
 
 module.exports = {
     list: (req, res, next) => {
@@ -30,7 +27,7 @@ module.exports = {
         if (datas && Array.isArray(datas)) {
             keysForDatas = true;
         } else {
-            
+
             keysForDatas = false;
         }
 
@@ -43,13 +40,13 @@ module.exports = {
                     datas.forEach((d: KeyRequestDataEntry) => {
                         var itemKey: any = new Object();
                         itemKey.product = product.id;
-                        itemKey.uuid = idGenerator();
+                        itemKey.uuid = UuidGenerator.UuidGenerator.generateId();
                         itemKey.data = d.data;
                         itemKey.serial = d.serial;
                         keysToReturn.push(itemKey);
                     });
-                 
-                  
+
+
                 } else {
                     if (!commonSerial) {
                         commonSerial = 0;
@@ -57,11 +54,11 @@ module.exports = {
                     for (var i = 0; i < amount; i++) {
                         var itemKey: any = new Object();
                         itemKey.product = product.id;
-                        itemKey.uuid = idGenerator();
+                        itemKey.uuid = UuidGenerator.UuidGenerator.generateId();
                         itemKey.serial = commonSerial++;
                         itemKey.data = commonData;
                         keysToReturn.push(itemKey);
-                    }                    
+                    }
                 }
                 ItemKey.collection.insert(keysToReturn, (err, docs) => {
                     if (err) {

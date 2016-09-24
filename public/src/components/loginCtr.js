@@ -24,3 +24,4 @@ var antiFakeClient;
     }());
     app.component('loginCtr', new LoginCtr());
 })(antiFakeClient || (antiFakeClient = {}));
+//# sourceMappingURL=loginCtr.js.map

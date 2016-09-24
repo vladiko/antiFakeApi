@@ -28,3 +28,4 @@ exports.ProducerSchema.set('toJSON', {
     virtuals: true
 });
 mongoose.model('Producer', exports.ProducerSchema);
+//# sourceMappingURL=producerModel.js.map

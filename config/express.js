@@ -37,3 +37,4 @@ module.exports = function () {
     app.use('/', router);
     return app;
 };
+//# sourceMappingURL=express.js.map

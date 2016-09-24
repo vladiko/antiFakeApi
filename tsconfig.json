@@ -1,3 +1,19 @@
 ﻿{
-  //"files": "typings/index.d.ts"    
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES5",
+
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": true,
+
+    // "sourceMap": true,
+    "sourceMap": true,
+
+    "inlineSources": true
+  }
 }

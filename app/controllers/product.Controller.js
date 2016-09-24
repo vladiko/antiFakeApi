@@ -35,3 +35,4 @@ module.exports = {
         });
     }
 };
+//# sourceMappingURL=product.controller.js.map

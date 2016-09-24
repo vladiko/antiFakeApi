@@ -4,3 +4,4 @@ module.exports = function (app) {
         .post(product.create)
         .get(product.list);
 };
+//# sourceMappingURL=product.routes.js.map

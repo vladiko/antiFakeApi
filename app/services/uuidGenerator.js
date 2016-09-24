@@ -9,5 +9,7 @@ var UuidGenerator = (function () {
     return UuidGenerator;
 }());
 exports.UuidGenerator = UuidGenerator;
-var gen = UuidGenerator.generateId;
-module.exports = gen;
+//}
+//var gen = UuidGenerator.generateId;
+//module.exports = gen; 
+//# sourceMappingURL=uuidGenerator.js.map

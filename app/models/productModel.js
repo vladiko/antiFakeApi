@@ -27,3 +27,4 @@ ProductSchema.set('toJSON', {
     virtuals: true
 });
 mongoose.model('Product', ProductSchema);
+//# sourceMappingURL=productModel.js.map

@@ -15,7 +15,7 @@ var ItemKeySchema = new Schema({
     product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
-        required: 'product is requered for item key'
+        required: 'product is requered for item key',
     },
     wasOpen: {
         type: Boolean,
@@ -34,3 +34,4 @@ ItemKeySchema.set('toJSON', {
     virtuals: true
 });
 mongoose.model('ItemKey', ItemKeySchema);
+//# sourceMappingURL=itemKeyModel.js.map

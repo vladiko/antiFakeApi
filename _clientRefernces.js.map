@@ -1,0 +1,1 @@
+{"version":3,"file":"_clientRefernces.js","sourceRoot":"","sources":["_clientRefernces.ts"],"names":[],"mappings":"AAAA,gDAAgD;AAChD,mEAAmE;AACnE,0DAA0D","sourcesContent":["/// <reference path=\"public/src/clientApp.ts\" />\r\n/// <reference path=\"public/src/services/comunicationService.ts\" />\r\n/// <reference path=\"public/src/components/loginCtr.ts\" />\r\n"]}

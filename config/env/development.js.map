@@ -1,1 +1,1 @@
-{"version":3,"file":"development.js","sourceRoot":"","sources":["development.ts"],"names":[],"mappings":"AAAC,MAAM,CAAC,OAAO,GAAG;IACd,aAAa,EAAE,0BAA0B;CAC5C,CAAC"}
+{"version":3,"file":"development.js","sourceRoot":"","sources":["development.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,GAAG;IACb,KAAK,EAAG,oDAAoD;IAC5D,aAAa,EAAE,+BAA+B;CACjD,CAAC","sourcesContent":["module.exports = {\r\n    dbUrl : 'mongodb://test:test@koganx.cloudapp.net:27017/test',\r\n    sessionSecret: 'developmentVladiSessionSecret'\r\n};"]}

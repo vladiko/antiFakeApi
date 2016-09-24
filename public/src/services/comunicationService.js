@@ -26,3 +26,4 @@ var antiFakeClient;
     antiFakeClient.CommunictionService = CommunictionService;
     angular.module('client').service('communicationService', CommunictionService);
 })(antiFakeClient || (antiFakeClient = {}));
+//# sourceMappingURL=comunicationService.js.map

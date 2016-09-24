@@ -4,3 +4,4 @@ module.exports = function (app) {
         .post(users.create)
         .get(users.list);
 };
+//# sourceMappingURL=user.routes.js.map

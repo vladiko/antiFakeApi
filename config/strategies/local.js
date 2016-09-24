@@ -25,3 +25,4 @@ module.exports = function () {
         });
     }));
 };
+//# sourceMappingURL=local.js.map
