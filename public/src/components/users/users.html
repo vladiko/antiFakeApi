@@ -1,0 +1,18 @@
+﻿<nav class="navbar navbar-light bg-faded">
+    <ul class="nav navbar-nav">
+        <li class="nav-item" ng-click="vm.select(vm.UsersScreens.UserList)" ng-class="vm.selectedView == vm.UsersScreens.UserList ? 'active':''">
+            <a class="nav-link">User List</a>
+        </li>
+        <li class="nav-item" ng-click="vm.select(vm.UsersScreens.AddNewUser)" ng-class="vm.selectedView == vm.UsersScreens.AddNewUser ? 'active':''">
+            <a class="nav-link">New User</a>
+        </li>
+    </ul>   
+</nav>
+<div>
+    <div ng-show="vm.selectedView == vm.UsersScreens.UserList">
+        <user-list></user-list>
+    </div>
+    <div ng-show="vm.selectedView == vm.UsersScreens.AddNewUser">
+        add new user not implemented
+    </div>
+</div>

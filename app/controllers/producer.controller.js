@@ -1,3 +1,4 @@
+"use strict";
 var Producer = require('mongoose').model('Producer'); //producer
 module.exports = {
     requiresLogin: function (req, res, next) {

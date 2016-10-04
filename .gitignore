@@ -7,3 +7,7 @@
 *.pubxml
 *.pubxml.user
 *.dat
+/public/lib/bootstrap/grunt
+/public/lib/bootstrap/js
+/public/lib/bootstrap/nuget
+/public/lib/bootstrap/scss

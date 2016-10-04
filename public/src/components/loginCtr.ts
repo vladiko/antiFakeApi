@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../../_clientRefernces.ts" />
 namespace antiFakeClient {
+    'use strict'
     let app = angular.module('client');
 
     class LoginCtr implements ng.IComponentOptions {

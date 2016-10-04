@@ -1,6 +1,7 @@
 /// <reference path="../../../_clientRefernces.ts" />
 var antiFakeClient;
 (function (antiFakeClient) {
+    'use strict';
     var app = angular.module('client');
     var LoginCtr = (function () {
         function LoginCtr() {

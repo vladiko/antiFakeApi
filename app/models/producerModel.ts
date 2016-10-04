@@ -1,6 +1,13 @@
 ﻿import * as mongoose from 'mongoose';
 import * as crypto from 'crypto';
 var Schema = mongoose.Schema;
+export interface IProducerModel extends mongoose.Document {
+    companyName: string;
+    address: string;
+    email: string;
+    uniqShortProducerName: string;
+    created: Date;
+}
 export var ProducerSchema = new Schema({
     companyName: {
         type: String,

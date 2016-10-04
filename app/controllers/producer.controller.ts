@@ -1,6 +1,7 @@
-﻿var Producer = require('mongoose').model('Producer');//producer
+﻿import * as mongoose from 'mongoose';
+import producerModel = require('../models/producerModel');
+var Producer: mongoose.Model<producerModel.IProducerModel> = require('mongoose').model('Producer');//producer
 module.exports = {
-
     requiresLogin: (req, res, next) => {
         if (!req.isAuthenticated()) {
             return res.status(401).send({
@@ -10,7 +11,7 @@ module.exports = {
         next();
     },
     list: (req, res, next) => {
-        Producer.find({}, (err, producers) => {
+        Producer.find({}, (err, producers: producerModel.IProducerModel[]) => {
             if (err) {
                 return next(err);
             } else {

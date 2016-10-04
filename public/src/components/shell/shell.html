@@ -1,0 +1,16 @@
+﻿<div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item" ng-click="vm.select(vm.Domains.Users)">
+            <a class="nav-link" ng-class="vm.selectedView == vm.Domains.Users ? 'active':''">{{vm.getViewName(vm.Domains.Users)}}</a>
+        </li>
+        <li class="nav-item" ng-click="vm.select(vm.Domains.Producers)">
+            <a class="nav-link" ng-class="vm.selectedView ==  vm.Domains.Producers ? 'active':''">{{vm.getViewName(vm.Domains.Producers)}}</a>
+        </li>
+    </ul>
+    <div ng-if="vm.selectedView == vm.Domains.Users">
+        <users></users>
+    </div>
+    <div ng-if="vm.selectedView == vm.Domains.Producers">
+        producers
+    </div>
+</div>
