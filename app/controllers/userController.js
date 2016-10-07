@@ -1,4 +1,9 @@
+"use strict";
 var User = require('mongoose').model('User');
+var passport = require('passport');
+setInterval(function () {
+    //logout for users that the token is 
+}, 60000);
 module.exports = {
     requiresLogin: function (req, res, next) {
         if (!req.isAuthenticated()) {
@@ -28,6 +33,21 @@ module.exports = {
                 res.json(user);
             }
         });
+    },
+    login: function (req, res, next) {
+        passport.authenticate('local', function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.send('false');
+            }
+            req.user = user;
+            res.json(req.isAuthenticated());
+        })(req, res, next);
+    },
+    logout: function (req, res, next) {
+        res.json({ user: 'logout' });
     }
 };
 //# sourceMappingURL=userController.js.map
