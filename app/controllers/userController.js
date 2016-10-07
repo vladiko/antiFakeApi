@@ -1,6 +1,7 @@
 "use strict";
 var User = require('mongoose').model('User');
 var passport = require('passport');
+var jwt = require('jsonwebtoken');
 setInterval(function () {
     //logout for users that the token is 
 }, 60000);
@@ -43,7 +44,8 @@ module.exports = {
                 return res.send('false');
             }
             req.user = user;
-            res.json(req.isAuthenticated());
+            var token = jwt.sign(user, 'dddddafaefafaf');
+            res.json(token);
         })(req, res, next);
     },
     logout: function (req, res, next) {

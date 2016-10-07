@@ -1,5 +1,6 @@
 ﻿var User = require('mongoose').model('User');
 import * as passport from 'passport';
+import * as jwt from 'jsonwebtoken';
 setInterval(() => {
     //logout for users that the token is 
 }, 60000);
@@ -36,7 +37,8 @@ module.exports = {
             if (err) { return next(err); }
             if (!user) { return res.send('false'); }
             req.user = user;
-            res.json(req.isAuthenticated());
+            var token = jwt.sign(user, 'dddddafaefafaf');
+            res.json(token);
         })(req, res, next);
     },
     logout: (req, res, next) => {
