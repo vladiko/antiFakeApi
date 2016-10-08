@@ -1,8 +1,11 @@
-﻿var User = require('mongoose').model('User');
+﻿/// <reference path="../services/authenticatedProduserUsersHelper.ts" />
+var User = require('mongoose').model('User');
 import * as passport from 'passport';
 import * as jwt from 'jsonwebtoken';
+import authHelper = require('../services/authenticatedProduserUsersHelper');
+var config = require('../../config/config.js');
 setInterval(() => {
-    //logout for users that the token is 
+    authHelper.AuthenticatedProduserUsersHelper.updateActiveTokens();
 }, 60000);
 module.exports = {
     requiresLogin: (req, res, next) => {
@@ -12,6 +15,16 @@ module.exports = {
             });
         }
         next();
+    },
+    checkLogin: (req, res, next) => {
+        if (req.body.token && authHelper.AuthenticatedProduserUsersHelper.getUserEntry(req.body.username) &&
+            authHelper.AuthenticatedProduserUsersHelper.getUserEntry(req.body.username).userToken == req.body.token) {
+            next();
+        } else {
+            return res.status(401).send({
+                message: 'User is not logged in'
+            });
+        }
     },
     list: (req, res, next) => {
         User.find({}, (err, users) => {
@@ -37,8 +50,11 @@ module.exports = {
             if (err) { return next(err); }
             if (!user) { return res.send('false'); }
             req.user = user;
-            var token = jwt.sign(user, 'dddddafaefafaf');
-            res.json(token);
+            res.user = user;
+            var token = jwt.sign('user.username', config.jwtSecret);
+            authHelper.AuthenticatedProduserUsersHelper.addUser(user, token);
+            res.token = token;
+            res.send(token);
         })(req, res, next);
     },
     logout: (req, res, next) => {
