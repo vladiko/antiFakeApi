@@ -18,6 +18,7 @@ var antiFakeClient;
     var UserListViewModel = (function () {
         function UserListViewModel(_communictionService) {
             this._communictionService = _communictionService;
+            this._communictionService.getAllUsers(antiFakeClient.CurrentUser.userName, antiFakeClient.CurrentUser.userToken);
         }
         //public UsersScreens = UsersScreens;
         //public getViewName(viewNum: UsersScreens): string {

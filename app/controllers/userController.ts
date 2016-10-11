@@ -16,8 +16,10 @@ export class UserController {
         next();
     };
     public static checkLogin = (req, res, next) => {
-        if (req.body.token && authHelper.AuthenticatedProduserUsersHelper.getUserEntry(req.body.username) &&
-            authHelper.AuthenticatedProduserUsersHelper.getUserEntry(req.body.username).userToken == req.body.token) {
+        var username = req.body.username || req.query.username;
+        var usertoken: string = req.body.token || req.query.token;
+        if (usertoken && authHelper.AuthenticatedProduserUsersHelper.getUserEntry(username) &&
+            authHelper.AuthenticatedProduserUsersHelper.getUserEntry(username).userToken == usertoken) {
             next();
         } else {
             return res.status(401).send({

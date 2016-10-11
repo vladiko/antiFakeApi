@@ -1,7 +1,6 @@
 ﻿/// <reference path='../../../_clientRefernces.ts' />
 namespace antiFakeClient {
     export class CommunictionService {
-
         public addUser = () => {
             this._$http.post<void>('/users', {
                 'firstName': 'Second',
@@ -17,8 +16,20 @@ namespace antiFakeClient {
             }));
         }
 
+        public getAllUsers = (username: string, usertoken: string): ng.IPromise<User[]> => {
+            var retDefer = this._$q.defer<User[]>();
+            this._$http.get<User[]>('/user', {
+                params: {
+                    token: CurrentUser.userToken,
+                    username: CurrentUser.userName
+                }
+            }).then((res) => { res.data });
+            return retDefer.promise;
+        };
+
         public login = (username: string, password: string): ng.IPromise<string> => {
             var retDefer = this._$q.defer<string>();
+            CurrentUser.userName = username;
             this._$http.post<{ gotToken: boolean; token: string; message: string }>('/user/login', {
                 username: username,
                 password: password

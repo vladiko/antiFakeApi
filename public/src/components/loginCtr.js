@@ -21,13 +21,6 @@ var antiFakeClient;
                 });
             };
         }
-        Object.defineProperty(LoginCtrViewModel.prototype, "isAuthenticated", {
-            get: function () {
-                return !!antiFakeClient.CurrentUser.userToken;
-            },
-            enumerable: true,
-            configurable: true
-        });
         LoginCtrViewModel.$inject = ['communicationService'];
         return LoginCtrViewModel;
     }());

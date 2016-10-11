@@ -7,16 +7,12 @@ namespace antiFakeClient {
         controller: Function = LoginCtrViewModel;
         templateUrl = 'src/components/loginCtr.html';
         controllerAs = 'vm';
-
     }
 
     class LoginCtrViewModel implements ng.IComponentController {
         public userName: string;
         public password: string;
         public errorMessage: string;
-        public get isAuthenticated(): boolean {
-            return !!CurrentUser.userToken;
-        }
 
         public login = (username: string, password: string) => {
             this._communictionService.login(username, password).then(null, (err) => {

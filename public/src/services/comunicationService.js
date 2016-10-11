@@ -20,8 +20,19 @@ var antiFakeClient;
                     console.log(err);
                 }));
             };
+            this.getAllUsers = function (username, usertoken) {
+                var retDefer = _this._$q.defer();
+                _this._$http.get('/user', {
+                    params: {
+                        token: antiFakeClient.CurrentUser.userToken,
+                        username: antiFakeClient.CurrentUser.userName
+                    }
+                }).then(function (res) { res.data; });
+                return retDefer.promise;
+            };
             this.login = function (username, password) {
                 var retDefer = _this._$q.defer();
+                antiFakeClient.CurrentUser.userName = username;
                 _this._$http.post('/user/login', {
                     username: username,
                     password: password

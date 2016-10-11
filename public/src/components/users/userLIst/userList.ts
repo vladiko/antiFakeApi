@@ -27,6 +27,7 @@ namespace antiFakeClient {
 
         static $inject = ['communicationService'];
         constructor(private _communictionService: CommunictionService) {
+            this._communictionService.getAllUsers(CurrentUser.userName, CurrentUser.userToken);
         }
     }
     app.component('userList', new UserList());
