@@ -11,13 +11,22 @@ namespace antiFakeClient {
     }
 
     class LoginCtrViewModel implements ng.IComponentController {
-        public t = 'dddd';
+        public userName: string;
+        public password: string;
+        public errorMessage: string;
+        public get isAuthenticated(): boolean {
+            return !!CurrentUser.userToken;
+        }
+
+        public login = (username: string, password: string) => {
+            this._communictionService.login(username, password).then(null, (err) => {
+                this.errorMessage = err;
+            });
+        }
+
         static $inject = ['communicationService'];
         constructor(private _communictionService: CommunictionService) {
         }
-        click = () => {
-            this._communictionService.addUser();
-         }
     }
     app.component('loginCtr', new LoginCtr());
 }

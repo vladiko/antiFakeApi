@@ -15,6 +15,10 @@ namespace antiFakeClient {
     }
 
     class ShellViewModel implements ng.IComponentController {
+
+        public get isAuthenticated(): boolean {
+            return !!CurrentUser.userToken;
+        }
         public Domains = Domains;
         public getViewName(viewNum: Domains): string {
             return Domains[viewNum];
@@ -23,13 +27,6 @@ namespace antiFakeClient {
         public selectedView: Domains = Domains.Users;
         public select = (view: Domains) => {
             this.selectedView = view;
-        }
-        public t = 'dddd';
-        static $inject = ['communicationService'];
-        constructor(private _communictionService: CommunictionService) {
-        }
-        click = () => {
-            this._communictionService.addUser();
         }
     }
     app.component('shell', new Shell());

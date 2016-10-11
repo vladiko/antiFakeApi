@@ -17,9 +17,35 @@ namespace antiFakeClient {
             }));
         }
 
-        static $inject = ['$http'];
+        public login = (username: string, password: string): ng.IPromise<string> => {
+            var retDefer = this._$q.defer<string>();
+            this._$http.post<{ gotToken: boolean; token: string; message: string }>('/user/login', {
+                username: username,
+                password: password
+            }).then((res) => {
+                if (res.data && res.data.gotToken) {
+                    CurrentUser.userToken = res.data.token;
+                    retDefer.resolve(null);
+                } else {
+                    var errMsg = 'Can\'t login! try later';
+                    if (res.data && !res.data.gotToken && res.data.message) {
+                        errMsg = res.data.message;
+                    }
+                    CurrentUser.userToken = null;
+                    retDefer.reject(errMsg);
+                }
+            }, (err) => {
+                CurrentUser.userToken = null;
+                retDefer.reject(err.toString());
+                //todo show error to user
+            });
+            return retDefer.promise;
 
-        constructor(private _$http: ng.IHttpService) {
+        }
+
+        static $inject = ['$http', '$q'];
+
+        constructor(private _$http: ng.IHttpService, private _$q: ng.IQService) {
 
         }
     }

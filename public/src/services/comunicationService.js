@@ -2,9 +2,10 @@
 var antiFakeClient;
 (function (antiFakeClient) {
     var CommunictionService = (function () {
-        function CommunictionService(_$http) {
+        function CommunictionService(_$http, _$q) {
             var _this = this;
             this._$http = _$http;
+            this._$q = _$q;
             this.addUser = function () {
                 _this._$http.post('/users', {
                     'firstName': 'Second',
@@ -19,8 +20,33 @@ var antiFakeClient;
                     console.log(err);
                 }));
             };
+            this.login = function (username, password) {
+                var retDefer = _this._$q.defer();
+                _this._$http.post('/user/login', {
+                    username: username,
+                    password: password
+                }).then(function (res) {
+                    if (res.data && res.data.gotToken) {
+                        antiFakeClient.CurrentUser.userToken = res.data.token;
+                        retDefer.resolve(null);
+                    }
+                    else {
+                        var errMsg = 'Can\'t login! try later';
+                        if (res.data && !res.data.gotToken && res.data.message) {
+                            errMsg = res.data.message;
+                        }
+                        antiFakeClient.CurrentUser.userToken = null;
+                        retDefer.reject(errMsg);
+                    }
+                }, function (err) {
+                    antiFakeClient.CurrentUser.userToken = null;
+                    retDefer.reject(err.toString());
+                    //todo show error to user
+                });
+                return retDefer.promise;
+            };
         }
-        CommunictionService.$inject = ['$http'];
+        CommunictionService.$inject = ['$http', '$q'];
         return CommunictionService;
     }());
     antiFakeClient.CommunictionService = CommunictionService;

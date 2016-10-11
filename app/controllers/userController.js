@@ -1,5 +1,4 @@
 "use strict";
-/// <reference path="../services/authenticatedProduserUsersHelper.ts" />
 var User = require('mongoose').model('User');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
@@ -8,16 +7,18 @@ var config = require('../../config/config.js');
 setInterval(function () {
     authHelper.AuthenticatedProduserUsersHelper.updateActiveTokens();
 }, 60000);
-module.exports = {
-    requiresLogin: function (req, res, next) {
+var UserController = (function () {
+    function UserController() {
+    }
+    UserController.requiresLogin = function (req, res, next) {
         if (!req.isAuthenticated()) {
             return res.status(401).send({
                 message: 'User is not logged in'
             });
         }
         next();
-    },
-    checkLogin: function (req, res, next) {
+    };
+    UserController.checkLogin = function (req, res, next) {
         if (req.body.token && authHelper.AuthenticatedProduserUsersHelper.getUserEntry(req.body.username) &&
             authHelper.AuthenticatedProduserUsersHelper.getUserEntry(req.body.username).userToken == req.body.token) {
             next();
@@ -27,8 +28,8 @@ module.exports = {
                 message: 'User is not logged in'
             });
         }
-    },
-    list: function (req, res, next) {
+    };
+    UserController.list = function (req, res, next) {
         User.find({}, function (err, users) {
             if (err) {
                 return next(err);
@@ -37,8 +38,8 @@ module.exports = {
                 res.json(users);
             }
         });
-    },
-    create: function (req, res, next) {
+    };
+    UserController.create = function (req, res, next) {
         var user = new User(req.body);
         user.save(function (err) {
             if (err) {
@@ -48,25 +49,27 @@ module.exports = {
                 res.json(user);
             }
         });
-    },
-    login: function (req, res, next) {
+    };
+    UserController.login = function (req, res, next) {
         passport.authenticate('local', function (err, user, info) {
             if (err) {
                 return next(err);
             }
             if (!user) {
-                return res.send('false');
+                return res.send({ gotToken: false, message: info.message });
             }
             req.user = user;
             res.user = user;
-            var token = jwt.sign('user.username', config.jwtSecret);
+            var token = jwt.sign('user.username' + 'user.password', config.jwtSecret);
             authHelper.AuthenticatedProduserUsersHelper.addUser(user, token);
             res.token = token;
-            res.send(token);
+            res.send({ gotToken: true, token: token });
         })(req, res, next);
-    },
-    logout: function (req, res, next) {
+    };
+    UserController.logout = function (req, res, next) {
         res.json({ user: 'logout' });
-    }
-};
+    };
+    return UserController;
+}());
+exports.UserController = UserController;
 //# sourceMappingURL=userController.js.map

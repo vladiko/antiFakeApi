@@ -1,5 +1,16 @@
 ﻿<div>
-    login component 
-    <span>{{vm.t}}</span>
-    <button ng-click="vm.click()">click</button>
+    <form novalidate class="simple-form">
+        <label>
+            User name:
+            <input type="text" ng-model="vm.username" />
+        </label>
+        <label>
+            Password:
+            <input type="password" ng-model="vm.password" />
+        </label>
+
+        <button type="submit" ng-click="vm.login(vm.username,vm.password)">login</button>
+
+        <div style="font-size:18px; color:darkred" ng-if="vm.errorMessage" ng-bind="vm.errorMessage"> </div>
+    </form>
 </div>

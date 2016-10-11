@@ -15,11 +15,19 @@ var antiFakeClient;
         function LoginCtrViewModel(_communictionService) {
             var _this = this;
             this._communictionService = _communictionService;
-            this.t = 'dddd';
-            this.click = function () {
-                _this._communictionService.addUser();
+            this.login = function (username, password) {
+                _this._communictionService.login(username, password).then(null, function (err) {
+                    _this.errorMessage = err;
+                });
             };
         }
+        Object.defineProperty(LoginCtrViewModel.prototype, "isAuthenticated", {
+            get: function () {
+                return !!antiFakeClient.CurrentUser.userToken;
+            },
+            enumerable: true,
+            configurable: true
+        });
         LoginCtrViewModel.$inject = ['communicationService'];
         return LoginCtrViewModel;
     }());

@@ -1,7 +1,7 @@
 ﻿<div>
-    
+    <login-ctr ng-if="!vm.isAuthenticated"></login-ctr>
 </div>
-<div>
+<div ng-if="vm.isAuthenticated">
     <ul class="nav nav-tabs">
         <li class="nav-item" ng-click="vm.select(vm.Domains.Users)">
             <a class="nav-link" ng-class="vm.selectedView == vm.Domains.Users ? 'active':''">{{vm.getViewName(vm.Domains.Users)}}</a>

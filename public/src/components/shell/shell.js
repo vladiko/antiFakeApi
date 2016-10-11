@@ -17,23 +17,24 @@ var antiFakeClient;
         Domains[Domains["Producers"] = 1] = "Producers";
     })(Domains || (Domains = {}));
     var ShellViewModel = (function () {
-        function ShellViewModel(_communictionService) {
+        function ShellViewModel() {
             var _this = this;
-            this._communictionService = _communictionService;
             this.Domains = Domains;
             this.selectedView = Domains.Users;
             this.select = function (view) {
                 _this.selectedView = view;
             };
-            this.t = 'dddd';
-            this.click = function () {
-                _this._communictionService.addUser();
-            };
         }
+        Object.defineProperty(ShellViewModel.prototype, "isAuthenticated", {
+            get: function () {
+                return !!antiFakeClient.CurrentUser.userToken;
+            },
+            enumerable: true,
+            configurable: true
+        });
         ShellViewModel.prototype.getViewName = function (viewNum) {
             return Domains[viewNum];
         };
-        ShellViewModel.$inject = ['communicationService'];
         return ShellViewModel;
     }());
     app.component('shell', new Shell());
