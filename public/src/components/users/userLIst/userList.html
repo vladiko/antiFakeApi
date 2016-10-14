@@ -1,1 +1,30 @@
-﻿<div>user list</div>
+﻿<div>
+    <table class="table table-bordered" style="max-width:1200px">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="s in vm.userList">
+                <th scope="row">{{$index + 1 }}</th>
+                <td>
+                    {{s.firstName}}
+                </td>
+                <td>
+                    {{s.lastName}}
+                </td>
+                <td>
+                    {{s.username}}
+                </td>
+                <td>
+                    {{s.email}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

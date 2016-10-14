@@ -15,6 +15,7 @@ namespace antiFakeClient {
     //}
 
     class UserListViewModel implements ng.IComponentController {
+        public userList;
         //public UsersScreens = UsersScreens;
         //public getViewName(viewNum: UsersScreens): string {
         //    return UsersScreens[viewNum];
@@ -27,7 +28,7 @@ namespace antiFakeClient {
 
         static $inject = ['communicationService'];
         constructor(private _communictionService: CommunictionService) {
-            this._communictionService.getAllUsers(CurrentUser.userName, CurrentUser.userToken);
+            this._communictionService.getAllUsers(CurrentUser.userName, CurrentUser.userToken).then((a) => { this.userList = a });
         }
     }
     app.component('userList', new UserList());

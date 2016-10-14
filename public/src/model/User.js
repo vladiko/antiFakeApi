@@ -8,4 +8,4 @@ var antiFakeClient;
     }());
     antiFakeClient.User = User;
 })(antiFakeClient || (antiFakeClient = {}));
-//# sourceMappingURL=User.js.map
+//# sourceMappingURL=user.js.map

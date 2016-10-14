@@ -6,7 +6,6 @@ module.exports = {
     check: function (str, callback) {
         var mongoClient = mongodbd.MongoClient;
         var mongoR;
-        // Use connect method to connect to the server
         mongoClient.connect(url, function (err, db) {
             assertA.equal(null, err);
             console.log("Connected succesfully to server " + str);

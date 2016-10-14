@@ -1,4 +1,3 @@
-/// <reference path='../../../_clientRefernces.ts' />
 var antiFakeClient;
 (function (antiFakeClient) {
     var CommunictionService = (function () {
@@ -6,20 +5,6 @@ var antiFakeClient;
             var _this = this;
             this._$http = _$http;
             this._$q = _$q;
-            this.addUser = function () {
-                _this._$http.post('/users', {
-                    'firstName': 'Second',
-                    'lastName': 'Second',
-                    'email': 'user@example.com',
-                    'username': 'vladi',
-                    'password': 'password',
-                    'provider': 'local'
-                }).then(function (d) {
-                    console.log('success');
-                }, (function (err) {
-                    console.log(err);
-                }));
-            };
             this.getAllUsers = function (username, usertoken) {
                 var retDefer = _this._$q.defer();
                 _this._$http.get('/user', {
@@ -27,7 +12,11 @@ var antiFakeClient;
                         token: antiFakeClient.CurrentUser.userToken,
                         username: antiFakeClient.CurrentUser.userName
                     }
-                }).then(function (res) { res.data; });
+                }).then(function (res) {
+                    retDefer.resolve(res.data);
+                }, function (err) {
+                    retDefer.reject(err);
+                });
                 return retDefer.promise;
             };
             this.login = function (username, password) {
@@ -52,7 +41,6 @@ var antiFakeClient;
                 }, function (err) {
                     antiFakeClient.CurrentUser.userToken = null;
                     retDefer.reject(err.toString());
-                    //todo show error to user
                 });
                 return retDefer.promise;
             };

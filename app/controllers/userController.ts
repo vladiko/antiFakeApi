@@ -28,7 +28,7 @@ export class UserController {
         }
     };
     public static list = (req, res, next) => {
-        User.find({}, (err, users) => {
+        User.find({}, '-password -salt', (err, users) => {
             if (err) {
                 return next(err);
             } else {

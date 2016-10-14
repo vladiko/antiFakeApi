@@ -1,20 +1,20 @@
 ﻿/// <reference path='../../../_clientRefernces.ts' />
 namespace antiFakeClient {
     export class CommunictionService {
-        public addUser = () => {
-            this._$http.post<void>('/users', {
-                'firstName': 'Second',
-                'lastName': 'Second',
-                'email': 'user@example.com',
-                'username': 'vladi',
-                'password': 'password',
-                'provider': 'local'
-            }).then((d) => {
-                console.log('success');
-            }, (err => {
-                console.log(err);
-            }));
-        }
+        //public addUser = () => {
+        //    this._$http.post<void>('/users', {
+        //        'firstName': 'Second',
+        //        'lastName': 'Second',
+        //        'email': 'user@example.com',
+        //        'username': 'vladi',
+        //        'password': 'password',
+        //        'provider': 'local'
+        //    }).then((d) => {
+        //        console.log('success');
+        //    }, (err => {
+        //        console.log(err);
+        //    }));
+        //}
 
         public getAllUsers = (username: string, usertoken: string): ng.IPromise<User[]> => {
             var retDefer = this._$q.defer<User[]>();
@@ -23,7 +23,12 @@ namespace antiFakeClient {
                     token: CurrentUser.userToken,
                     username: CurrentUser.userName
                 }
-            }).then((res) => { res.data });
+            }).then((res) => {
+                retDefer.resolve(res.data)
+            },
+                (err) => {
+                    retDefer.reject(err)
+                });
             return retDefer.promise;
         };
 

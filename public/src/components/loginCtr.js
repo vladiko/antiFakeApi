@@ -1,4 +1,3 @@
-/// <reference path="../../../_clientRefernces.ts" />
 var antiFakeClient;
 (function (antiFakeClient) {
     'use strict';

@@ -32,7 +32,7 @@ var UserController = (function () {
         }
     };
     UserController.list = function (req, res, next) {
-        User.find({}, function (err, users) {
+        User.find({}, '-password -salt', function (err, users) {
             if (err) {
                 return next(err);
             }
