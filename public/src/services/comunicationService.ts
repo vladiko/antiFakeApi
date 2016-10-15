@@ -15,6 +15,12 @@ namespace antiFakeClient {
         //        console.log(err);
         //    }));
         //}
+        private checkResStatus(status) {
+            if (status == '401') {
+                //todo show timeout message
+                CurrentUser.userToken = null;
+            }
+        }
 
         public getAllUsers = (username: string, usertoken: string): ng.IPromise<User[]> => {
             var retDefer = this._$q.defer<User[]>();
@@ -28,6 +34,9 @@ namespace antiFakeClient {
             },
                 (err) => {
                     retDefer.reject(err)
+                    if (err.status) {
+                        this.checkResStatus(err.status);
+                    }
                 });
             return retDefer.promise;
         };

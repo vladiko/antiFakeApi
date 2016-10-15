@@ -12,10 +12,13 @@ var antiFakeClient;
     }());
     var UserListViewModel = (function () {
         function UserListViewModel(_communictionService) {
-            var _this = this;
             this._communictionService = _communictionService;
-            this._communictionService.getAllUsers(antiFakeClient.CurrentUser.userName, antiFakeClient.CurrentUser.userToken).then(function (a) { _this.userList = a; });
+            this.refreshUserList();
         }
+        UserListViewModel.prototype.refreshUserList = function () {
+            var _this = this;
+            this._communictionService.getAllUsers(antiFakeClient.CurrentUser.userName, antiFakeClient.CurrentUser.userToken).then(function (a) { _this.userList = a; });
+        };
         UserListViewModel.$inject = ['communicationService'];
         return UserListViewModel;
     }());

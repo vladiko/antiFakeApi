@@ -25,10 +25,13 @@ namespace antiFakeClient {
         //public select = (view: UsersScreens) => {
         //    this.selectedView = view;
         //}
+        public refreshUserList() {
+            this._communictionService.getAllUsers(CurrentUser.userName, CurrentUser.userToken).then((a) => { this.userList = a });
+        }
 
         static $inject = ['communicationService'];
         constructor(private _communictionService: CommunictionService) {
-            this._communictionService.getAllUsers(CurrentUser.userName, CurrentUser.userToken).then((a) => { this.userList = a });
+            this.refreshUserList();
         }
     }
     app.component('userList', new UserList());

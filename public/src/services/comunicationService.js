@@ -16,6 +16,9 @@ var antiFakeClient;
                     retDefer.resolve(res.data);
                 }, function (err) {
                     retDefer.reject(err);
+                    if (err.status) {
+                        _this.checkResStatus(err.status);
+                    }
                 });
                 return retDefer.promise;
             };
@@ -45,6 +48,11 @@ var antiFakeClient;
                 return retDefer.promise;
             };
         }
+        CommunictionService.prototype.checkResStatus = function (status) {
+            if (status == '401') {
+                antiFakeClient.CurrentUser.userToken = null;
+            }
+        };
         CommunictionService.$inject = ['$http', '$q'];
         return CommunictionService;
     }());

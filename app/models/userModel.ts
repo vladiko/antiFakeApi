@@ -18,7 +18,7 @@ var UserSchema = new Schema({
         type: String,
         validate: [
             function (password) {
-                return password && password.length > 6;
+                return password && password.length > 3;
             }, 'Password should be longer'
         ]
     },
@@ -34,6 +34,10 @@ var UserSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    role: {
+        type: Number,
+        required: 'User Role is required'
     }
 });
 UserSchema.virtual('fullName').get(function () {
