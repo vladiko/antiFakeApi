@@ -35,3 +35,5 @@ ProducerSchema.set('toJSON', {
     virtuals: true
 });
 mongoose.model('Producer', ProducerSchema);
+export var model = mongoose.model<IProducerModel>("Producer", ProducerSchema);
+

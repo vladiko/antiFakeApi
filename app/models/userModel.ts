@@ -1,19 +1,22 @@
 ﻿import * as mongoose from 'mongoose';
 import * as crypto from 'crypto';
 var Schema = mongoose.Schema;
-export interface IUserModel extends mongoose.Document {
+export interface IUser {
     firstName: string,
     lastName: string,
     email: string,
     username: string,
     password: string,
-    salt: string,
     provider: string,
     providerId: string,
     providerData: Object,
     created: Date,
     role: number,
-    fullName: string,
+    fullName: string
+};
+
+export interface IUserModel extends IUser, mongoose.Document {
+    salt: string,
     hashPassword: (password: string) => string,
     authenticate: (password: string) => boolean
 }
@@ -103,5 +106,5 @@ UserSchema.set('toJSON', {
     virtuals: true
 });
 mongoose.model('User', UserSchema);
-export var userModel = mongoose.model<IUserModel>("User", UserSchema);
+export var model = mongoose.model<IUserModel>("User", UserSchema);
 

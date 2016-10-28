@@ -4,19 +4,19 @@ import * as express from 'express';
 import authHelper = require('../services/authUsersHelper');
 var config = require('../../config/config.js');
 import userModel = require('../models/userModel');
-var User = userModel.userModel;
+var User = userModel.model;
 export class UserController {
     public static authUserHelper = new authHelper.AuthUsersHelper(20, 60000);
-    public static requiresLogin = (req, res, next) => {
-        if (!req.isAuthenticated()) {
-            return res.status(401).send({
-                message: 'User is not logged in'
-            });
-        }
-        next();
-    };
-    public static checkLogin = (req, res, next) => {
-        var username = req.body.username || req.query.username;
+    //public static requiresLogin: express.RequestHandler = (req, res, next) => {
+    //    if (!req.isAuthenticated()) {
+    //        return res.status(401).send({
+    //            message: 'User is not logged in'
+    //        });
+    //    }
+    //    next();
+    //};
+    public static checkLogin: express.RequestHandler = (req, res, next) => {
+        var username = req.query.username;
         var usertoken: string = req.body.token || req.query.token;
         var userEntry: authHelper.ActiveUserEntry;
         if (username && usertoken) {
@@ -32,7 +32,7 @@ export class UserController {
         }
     };
 
-    public static authorizeForUsers = (req, res, next) => {
+    public static authorizeForUsers: express.RequestHandler = (req, res, next) => {
         if (req.user) {
             if (req.user.role == authHelper.UserAuthorizationRoles.SUPER_USER || req.user.role == authHelper.UserAuthorizationRoles.USERS_ADMIN) {
                 next();
@@ -48,7 +48,7 @@ export class UserController {
         }
     };
 
-    public static list: express.RequestHandler = (req: express.Request, res: express.Response, next) => {
+    public static list: express.RequestHandler = (req, res, next) => {
         User.find({}, '-password -salt', (err, users) => {
             if (err) {
                 return next(err);
@@ -57,7 +57,8 @@ export class UserController {
             }
         });
     };
-    public static create = (req, res, next) => {
+
+    public static create: express.RequestHandler = (req, res, next) => {
         var user = new User(req.body);
         user.save((err) => {
             if (err) {
@@ -67,19 +68,70 @@ export class UserController {
             }
         });
     };
-    public static login = (req, res, next) => {
-        passport.authenticate('local', function (err, user, info) {
-            if (err) { return next(err); }
-            if (!user) { return res.send({ gotToken: false, message: info.message }); }
-            req.user = user;
-            res.user = user;
-            var token = jwt.sign('user.username' + 'user.password', config.jwtSecret);
-            UserController.authUserHelper.addUser(user, token);
-            res.token = token;
-            res.send({ gotToken: true, token: token });
+
+    public static update: express.RequestHandler = (req, res, next) => {
+        User.findOne({ username: req.body.username }, function (err, user) {
+            var userToUpdate = user;
+            if (req.body.firstName.trim()) {
+                userToUpdate.firstName = req.body.firstName.trim();
+            }
+
+
+            if (req.body.lastName.trim()) {
+                userToUpdate.lastName = req.body.lastName.trim();
+            }
+
+            if (req.body.role.trim()) {
+                userToUpdate.role = req.body.role.trim();
+            }
+
+            if (req.body.email.trim()) {
+                userToUpdate.email = req.body.email.trim();
+            }
+
+            if (req.body.password.trim()) {
+                userToUpdate.password = req.body.password.trim();
+            }
+            if (req.body.provider.trim()) {
+                userToUpdate.provider = req.body.provider.trim();
+            } else {
+                if (!userToUpdate.provider.trim()) {
+                    userToUpdate.provider = 'local';
+                }
+            };
+            var userModel = <userModel.IUserModel>userToUpdate;
+            userModel.save((err) => {
+                if (err) {
+                    return next(err);
+                } else {
+                    res.json(userToUpdate);
+                }
+            });
+        });
+    };
+
+    public static login: express.RequestHandler = (req, res, next) => {
+        passport.authenticate('local', (err, user, info) => {
+            if (err) {
+                return next(err);
+            } else if (!user) {
+                res.send({ gotToken: false, message: info.message });
+            } else {
+                req.user = user;
+                var token = jwt.sign('user.username' + 'user.password', config.jwtSecret);
+                UserController.authUserHelper.addUser(user, token);
+                res.send({ gotToken: true, token: token });
+            }
+
         })(req, res, next);
     };
-    public static logout = (req, res, next) => {
-        res.json({ user: 'logout' });
+
+    public static logout: express.RequestHandler = (req, res, next) => {
+        if (req.user) {
+            UserController.authUserHelper.removeUser((<userModel.IUserModel>req.user).username);
+            res.json({ logout: (<userModel.IUserModel>req.user).username });
+        } else {
+            next(new Error());
+        }
     }
 }

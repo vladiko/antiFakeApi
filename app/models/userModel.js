@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var Schema = mongoose.Schema;
+;
 var UserSchema = new Schema({
     firstName: String,
     lastName: String,
@@ -86,5 +87,5 @@ UserSchema.set('toJSON', {
     virtuals: true
 });
 mongoose.model('User', UserSchema);
-exports.userModel = mongoose.model("User", UserSchema);
+exports.model = mongoose.model("User", UserSchema);
 //# sourceMappingURL=userModel.js.map

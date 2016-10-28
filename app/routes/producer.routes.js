@@ -1,7 +1,9 @@
-var producer = require('../../app/controllers/producer.controller');
+"use strict";
+var producerController = require('../../app/controllers/producer.controller');
+var ProducerCtrl = producerController.ProducerController;
 module.exports = function (app) {
     app.route('/producer')
-        .post(producer.create)
-        .get(producer.list);
+        .post(ProducerCtrl.create)
+        .get(ProducerCtrl.list);
 };
 //# sourceMappingURL=producer.routes.js.map
