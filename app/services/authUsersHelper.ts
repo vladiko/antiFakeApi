@@ -4,14 +4,15 @@
 
 export enum UserAuthorizationRoles {
     SUPER_USER = 100,
-    USERS_ADMIN = 99,
-    PRODUCERS_ADMIN = 98
+    USERS_ADMIN = 90,
+    PRODUCERS_ADMIN = 80,
+    PRODUCERS_KEY_CREATOR = 70
 }
 
 export class AuthUsersHelper {
     private users
     public tokenTimeout = 20;
-    public checkInterval = 1000;
+    public checkInterval = 60000;
 
     private getUserTimeoutTime(): Date {
         var timeoutMinutesLater = new Date();

@@ -1,8 +1,10 @@
-﻿var User = require('mongoose').model('User');
-import * as passport from 'passport';
+﻿import * as passport from 'passport';
 import * as jwt from 'jsonwebtoken';
+import * as express from 'express';
 import authHelper = require('../services/authUsersHelper');
 var config = require('../../config/config.js');
+import userModel = require('../models/userModel');
+var User = userModel.userModel;
 export class UserController {
     public static authUserHelper = new authHelper.AuthUsersHelper(20, 60000);
     public static requiresLogin = (req, res, next) => {
@@ -46,9 +48,7 @@ export class UserController {
         }
     };
 
-
-
-    public static list = (req, res, next) => {
+    public static list: express.RequestHandler = (req: express.Request, res: express.Response, next) => {
         User.find({}, '-password -salt', (err, users) => {
             if (err) {
                 return next(err);

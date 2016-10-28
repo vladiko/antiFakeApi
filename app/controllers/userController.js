@@ -1,9 +1,10 @@
 "use strict";
-var User = require('mongoose').model('User');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 var authHelper = require('../services/authUsersHelper');
 var config = require('../../config/config.js');
+var userModel = require('../models/userModel');
+var User = userModel.userModel;
 var UserController = (function () {
     function UserController() {
     }

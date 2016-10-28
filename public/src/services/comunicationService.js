@@ -1,3 +1,4 @@
+/// <reference path='../../../_clientRefernces.ts' />
 var antiFakeClient;
 (function (antiFakeClient) {
     var CommunictionService = (function () {
@@ -44,12 +45,28 @@ var antiFakeClient;
                 }, function (err) {
                     antiFakeClient.CurrentUser.userToken = null;
                     retDefer.reject(err.toString());
+                    //todo show error to user
                 });
                 return retDefer.promise;
             };
         }
+        //public addUser = () => {
+        //    this._$http.post<void>('/users', {
+        //        'firstName': 'Second',
+        //        'lastName': 'Second',
+        //        'email': 'user@example.com',
+        //        'username': 'vladi',
+        //        'password': 'password',
+        //        'provider': 'local'
+        //    }).then((d) => {
+        //        console.log('success');
+        //    }, (err => {
+        //        console.log(err);
+        //    }));
+        //}
         CommunictionService.prototype.checkResStatus = function (status) {
             if (status == '401') {
+                //todo show timeout message
                 antiFakeClient.CurrentUser.userToken = null;
             }
         };

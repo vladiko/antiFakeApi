@@ -10,15 +10,16 @@ var ActiveUserEntry = (function () {
 exports.ActiveUserEntry = ActiveUserEntry;
 (function (UserAuthorizationRoles) {
     UserAuthorizationRoles[UserAuthorizationRoles["SUPER_USER"] = 100] = "SUPER_USER";
-    UserAuthorizationRoles[UserAuthorizationRoles["USERS_ADMIN"] = 99] = "USERS_ADMIN";
-    UserAuthorizationRoles[UserAuthorizationRoles["PRODUCERS_ADMIN"] = 98] = "PRODUCERS_ADMIN";
+    UserAuthorizationRoles[UserAuthorizationRoles["USERS_ADMIN"] = 90] = "USERS_ADMIN";
+    UserAuthorizationRoles[UserAuthorizationRoles["PRODUCERS_ADMIN"] = 80] = "PRODUCERS_ADMIN";
+    UserAuthorizationRoles[UserAuthorizationRoles["PRODUCERS_KEY_CREATOR"] = 70] = "PRODUCERS_KEY_CREATOR";
 })(exports.UserAuthorizationRoles || (exports.UserAuthorizationRoles = {}));
 var UserAuthorizationRoles = exports.UserAuthorizationRoles;
 var AuthUsersHelper = (function () {
     function AuthUsersHelper(timeout, checkingInterval) {
         var _this = this;
         this.tokenTimeout = 20;
-        this.checkInterval = 1000;
+        this.checkInterval = 60000;
         if (timeout) {
             this.tokenTimeout = timeout;
         }

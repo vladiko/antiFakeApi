@@ -1,5 +1,5 @@
 "use strict";
-var Producer = require('mongoose').model('Producer');
+var producer = require('mongoose').model('Producer'); //producer
 module.exports = {
     requiresLogin: function (req, res, next) {
         if (!req.isAuthenticated()) {
@@ -10,7 +10,7 @@ module.exports = {
         next();
     },
     list: function (req, res, next) {
-        Producer.find({}, function (err, producers) {
+        producer.find({}, function (err, producers) {
             if (err) {
                 return next(err);
             }
@@ -20,7 +20,7 @@ module.exports = {
         });
     },
     create: function (req, res, next) {
-        var producer = new Producer(req.body);
+        var producer = new producer(req.body);
         producer.save(function (err) {
             if (err) {
                 return next(err);

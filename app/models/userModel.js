@@ -86,4 +86,5 @@ UserSchema.set('toJSON', {
     virtuals: true
 });
 mongoose.model('User', UserSchema);
+exports.userModel = mongoose.model("User", UserSchema);
 //# sourceMappingURL=userModel.js.map
