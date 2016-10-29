@@ -7,7 +7,7 @@ import * as passport from 'passport';
 
 var config = require('./config'),
     methodOverride = require('method-override');
-module.exports = function () {
+module.exports = () => {
     var app = express();
     if (process.env.NODE_ENV === 'development') {
         app.use(morgan('dev'));
@@ -25,7 +25,7 @@ module.exports = function () {
         resave: true,
         secret: config.sessionSecret
     }));
-    app.use(function (req, res, next) {
+    app.use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT');
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
@@ -43,6 +43,11 @@ module.exports = function () {
     require('../app/routes/fakeChecker.routes.js')(app, router);
     require('../app/routes/user.routes.js')(app, router);
     app.use(express.static('./public'));
-    app.use('/', router);
+    var errorHandler: express.ErrorRequestHandler = (err, req, res, next) => {
+        console.error(err);
+        res.status(500).send('Something broke!');
+    };
+    app.use(errorHandler);
+
     return app;
 };

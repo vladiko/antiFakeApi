@@ -1,6 +1,6 @@
 ﻿var config = require('./config');
-import * as mongoose  from 'mongoose';
-module.exports = function () {
+import * as mongoose from 'mongoose';
+module.exports = () => {
     let db = mongoose.connect(config.dbUrl);
     require('../app/models/userModel');
     require('../app/models/producerModel');

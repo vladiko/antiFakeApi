@@ -41,6 +41,25 @@ namespace antiFakeClient {
             return retDefer.promise;
         };
 
+        public destroyUser(username) {
+            var retDefer = this._$q.defer<Object>();
+            this._$http.delete<Object>('/user/' + username, {
+                params: {
+                    token: CurrentUser.userToken,
+                    username: CurrentUser.userName
+                }
+            }).then((res) => {
+                retDefer.resolve(res.data)
+            },
+                (err) => {
+                    retDefer.reject(err)
+                    if (err.status) {
+                        this.checkResStatus(err.status);
+                    }
+                });
+            return retDefer.promise;
+        }
+
         public login = (username: string, password: string): ng.IPromise<string> => {
             var retDefer = this._$q.defer<string>();
             CurrentUser.userName = username;

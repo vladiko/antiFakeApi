@@ -10,6 +10,7 @@
                 <th>Last Name</th>
                 <th>Username</th>
                 <th>Email</th>
+                <th>Role</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,12 @@
                 </td>
                 <td>
                     {{s.email}}
+                </td>
+                <td>
+                    {{s.role}}
+                </td>
+                <td>
+                    <a ng-click="vm.destroy(s)">delete</a>
                 </td>
             </tr>
         </tbody>

@@ -40,7 +40,11 @@ module.exports = function () {
     require('../app/routes/fakeChecker.routes.js')(app, router);
     require('../app/routes/user.routes.js')(app, router);
     app.use(express.static('./public'));
-    app.use('/', router);
+    var errorHandler = function (err, req, res, next) {
+        console.error(err);
+        res.status(500).send('Something broke!');
+    };
+    app.use(errorHandler);
     return app;
 };
 //# sourceMappingURL=express.js.map

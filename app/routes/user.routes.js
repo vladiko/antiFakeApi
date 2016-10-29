@@ -12,6 +12,12 @@ module.exports = function (app) {
         .get(users.UserController.checkLogin, users.UserController.logout);
     app.route('/user/list')
         .post(users.UserController.checkLogin, users.UserController.authorizeForUsers, users.UserController.list);
-    app.route;
+    app.route('/user/:username')
+        .delete(users.UserController.checkLogin, users.UserController.authorizeForUsers, users.UserController.destroy);
+    var errorHandler = function (err, req, res, next) {
+        console.error(err);
+        res.status(500).send('Something broke in users!');
+    };
+    app.use('/user', errorHandler);
 };
 //# sourceMappingURL=user.routes.js.map

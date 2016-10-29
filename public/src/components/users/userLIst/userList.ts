@@ -29,6 +29,13 @@ namespace antiFakeClient {
             this._communictionService.getAllUsers(CurrentUser.userName, CurrentUser.userToken).then((a) => { this.userList = a });
         }
 
+        public destroy(user) {
+            this._communictionService.destroyUser(user.username).then((s) => {
+                this.refreshUserList();
+            }).catch((err) => { });
+        }
+
+
         static $inject = ['communicationService'];
         constructor(private _communictionService: CommunictionService) {
             this.refreshUserList();

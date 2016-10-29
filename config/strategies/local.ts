@@ -1,12 +1,12 @@
-﻿import * as passport  from 'passport';
+﻿import * as passport from 'passport';
 import * as  passportLocal from 'passport-local';//.Strategy,
 var LocalStrategy = passportLocal.Strategy;
 var User = require('mongoose').model('User');
-module.exports = function () {
-    passport.use(new LocalStrategy(function (username, password, done) {
+module.exports = () => {
+    passport.use(new LocalStrategy((username, password, done) => {
         User.findOne({
             username: username
-        }, function (err, user) {
+        }, (err, user) => {
             if (err) {
                 return done(err);
             }

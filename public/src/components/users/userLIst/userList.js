@@ -32,6 +32,12 @@ var antiFakeClient;
             var _this = this;
             this._communictionService.getAllUsers(antiFakeClient.CurrentUser.userName, antiFakeClient.CurrentUser.userToken).then(function (a) { _this.userList = a; });
         };
+        UserListViewModel.prototype.destroy = function (user) {
+            var _this = this;
+            this._communictionService.destroyUser(user.username).then(function (s) {
+                _this.refreshUserList();
+            }).catch(function (err) { });
+        };
         UserListViewModel.$inject = ['communicationService'];
         return UserListViewModel;
     }());

@@ -74,27 +74,30 @@ var UserController = (function () {
     };
     UserController.update = function (req, res, next) {
         User.findOne({ username: req.body.username }, function (err, user) {
+            if (err) {
+                next(err);
+            }
             var userToUpdate = user;
-            if (req.body.firstName.trim()) {
+            if (req.body.firstName && req.body.firstName.trim()) {
                 userToUpdate.firstName = req.body.firstName.trim();
             }
-            if (req.body.lastName.trim()) {
+            if (req.body.lastName && req.body.lastName.trim()) {
                 userToUpdate.lastName = req.body.lastName.trim();
             }
-            if (req.body.role.trim()) {
+            if (req.body.role && req.body.role.trim()) {
                 userToUpdate.role = req.body.role.trim();
             }
-            if (req.body.email.trim()) {
+            if (req.body.email && req.body.email.trim()) {
                 userToUpdate.email = req.body.email.trim();
             }
-            if (req.body.password.trim()) {
+            if (req.body.password && req.body.password.trim()) {
                 userToUpdate.password = req.body.password.trim();
             }
-            if (req.body.provider.trim()) {
+            if (req.body.provider && req.body.provider.trim()) {
                 userToUpdate.provider = req.body.provider.trim();
             }
             else {
-                if (!userToUpdate.provider.trim()) {
+                if (!userToUpdate.provider || !userToUpdate.provider.trim()) {
                     userToUpdate.provider = 'local';
                 }
             }
@@ -125,6 +128,23 @@ var UserController = (function () {
                 res.send({ gotToken: true, token: token });
             }
         })(req, res, next);
+    };
+    UserController.destroy = function (req, res, next) {
+        User.findOne({ username: req.params.username }, function (err, user) {
+            if (err) {
+                return next(err);
+            }
+            else {
+                User.remove({ username: req.params.username }, function (errr) {
+                    if (errr) {
+                        next(errr);
+                    }
+                    else {
+                        res.send({ user: user.username, removed: true });
+                    }
+                });
+            }
+        });
     };
     UserController.logout = function (req, res, next) {
         if (req.user) {

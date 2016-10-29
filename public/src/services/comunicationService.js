@@ -70,6 +70,24 @@ var antiFakeClient;
                 antiFakeClient.CurrentUser.userToken = null;
             }
         };
+        CommunictionService.prototype.destroyUser = function (username) {
+            var _this = this;
+            var retDefer = this._$q.defer();
+            this._$http.delete('/user/' + username, {
+                params: {
+                    token: antiFakeClient.CurrentUser.userToken,
+                    username: antiFakeClient.CurrentUser.userName
+                }
+            }).then(function (res) {
+                retDefer.resolve(res.data);
+            }, function (err) {
+                retDefer.reject(err);
+                if (err.status) {
+                    _this.checkResStatus(err.status);
+                }
+            });
+            return retDefer.promise;
+        };
         CommunictionService.$inject = ['$http', '$q'];
         return CommunictionService;
     }());

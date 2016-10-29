@@ -60,6 +60,7 @@ var UserSchema = new Schema({
         required: 'User Role is required'
     }
 });
+
 UserSchema.virtual('fullName').get(function () {
     return this.firstName + ' ' + this.lastName;
 }).set(function (fullName) {
